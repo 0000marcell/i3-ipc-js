@@ -1,0 +1,18 @@
+#!/usr/bin/env gjs
+
+const i3ipc = imports.gi.i3ipc;
+
+// Create the Connection object that can be used to send commands and subscribe
+// to events.
+let conn = new i3ipc.Connection;
+
+// Query the ipc for outputs. The result is a list that represents the parsed
+// reply of a command like `i3-msg -t get_outputs`.
+let outputs = conn.get_outputs();
+
+print('Active outputs:');
+
+outputs.forEach(function(o, i) {
+    if (o.active)
+        print(o.name);
+});
